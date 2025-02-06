@@ -29,7 +29,7 @@ next()
 
 })
 
-
+const PORT = process.env.PORT || 4000;
 
 //routes
 app.use('/api',complaintRoutes)
