@@ -1,0 +1,103 @@
+.bg-container {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	/* z-index: 10; */
+	pointer-events: auto; 
+  }
+  
+
+  /* .bg-container .menu_butn {
+	z-index: 15; 
+  } */
+  
+  
+  .menu-icon {
+	position: absolute;
+	background: #606062; 
+	border-radius: 13px;/* Make sure the menu icon is absolutely positioned */
+	top: -1vh; /* Adjust the vertical position as needed */
+	/* right: 1vh;  */
+	width: 55px; /* Increased width */
+	height: 45px; /* Increased height */
+	cursor: pointer;
+	z-index: 20;
+	transition: all 0.5s ease-in-out; /* Smooth transition */
+  }
+  
+  /* The invisible checkbox to trigger the menu */
+  .menu-icon__cheeckbox {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	cursor: pointer;
+	z-index: 2;
+	opacity: 0;
+  }
+  
+  .menu-icon div {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	width: 30px; /* Wider container for bars */
+	height: 18px; /* Taller height */
+  }
+  
+  /* Styling the bars */
+  .menu-icon span {
+	position: absolute;
+	display: block;
+	height: 2px; /* Thicker bars */
+	background-color: var(--bar-bg, #ffffff);
+	border-radius: 2px;
+	transition: all 0.2s ease-in-out;
+  }
+  
+  /* First bar (shorter) */
+  .menu-icon span:first-of-type {
+	top: 0;
+	width: 22px; /* Shorter line */
+  }
+  
+  /* Second bar (longer) */
+  .menu-icon span:last-of-type {
+	bottom: 0;
+	width: 36px; /* Longer line */
+  }
+  
+  /* Transition into 'X' (cross) icon */
+  .menu-icon__cheeckbox:checked + div span:first-of-type {
+	transform: rotate(45deg);
+	top: 7px;
+	width: 32px; /* Adjusted width */
+  }
+  
+  .menu-icon__cheeckbox:checked + div span:last-of-type {
+	transform: rotate(-45deg);
+	bottom: 8px;
+	width: 30px; /* Adjusted width */
+  }
+  
+  /* When the menu is open, move the icon to the right */
+
+  
+  @media (min-width: 1024px) {
+	.menu-icon:hover span:first-of-type {
+	  width: 26px;
+	}
+	
+	.menu-icon:hover span:last-of-type {
+	  width: 14px;
+	}
+  }
+  
+  @media (max-width: 724px) {
+	.menu_butn {
+		margin-right: 12vw;
+	}
+  
+  }

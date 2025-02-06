@@ -1,0 +1,13 @@
+.rhida {
+    pointer-events: auto; /* Ensure this is clickable */
+  }
+  
+  .bg-container { 
+    /* This class should be added to your Bg component or its container if needed */
+    pointer-events: auto; /* This makes the background unclickable */
+  }
+
+  .bg-content {
+    pointer-events: none; /* Ensures that background content doesn't block clicks */
+  }
+  
