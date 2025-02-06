@@ -7,7 +7,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isAdmin }) => {
-  return isAdmin ? children : <Navigate to="/home" />;
+  return isAdmin ? children : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

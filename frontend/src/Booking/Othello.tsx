@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const userEmail = sessionStorage.getItem("userEmail");
 // Define Slot Type
@@ -11,6 +12,13 @@ interface Slot {
 
 
 const Othello: React.FC = () => {
+
+    const handleOpenOhelloPage = () => {
+        window.open('https://www.eothello.com/', '_blank');
+      };
+
+const navigate=useNavigate()
+const isUser = sessionStorage.getItem("role") === "user";
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
@@ -74,41 +82,47 @@ const Othello: React.FC = () => {
   // Handle booking a slot
   const handleBook = async () => {
     if (!selectedSlot || isAvailable !== true) return;
+    if(isUser){
+      try {
+
   
-    try {
-      const response = await fetch("http://localhost:4000/api/slots", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          starttime,
-          endtime,
-          email: userEmail,
-          gameName: 'Othello',  // Make sure 'Risk' is a valid value in your enum
-        }),
-      });
+        const response = await fetch("http://localhost:4000/api/slots", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
+        });
   
-      const json = await response.json();
+        const json = await response.json();
   
-      if (!response.ok) {
-        Swal.fire("Error", json.message || "Something went wrong!", "error");
-        console.error("Booking failed:", json.message);
-        return;
+        if (!response.ok) {
+          Swal.fire("Error", json.message || "Something went wrong!", "error");
+          return;
+        }
+  
+        Swal.fire("Success", "Slot booked successfully!", "success");
+  
+        // Update UI after booking
+        setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
+        setIsAvailable(null); // Reset availability state
+      } catch (error) {
+        console.error("Booking error:", error);
       }
-  
-      Swal.fire("Success", "Slot booked successfully!", "success");
-  
-      // Update UI after booking
-      setSlots([...slots, { starttime, endtime, gameName: "Othello" }]);
-      setIsAvailable(null); // Reset availability state
-    } catch (error) {
-      console.error("Booking error:", error);
-      Swal.fire("Error", "Booking failed. Please try again.", "error");
+
+    }else{
+          Swal.fire({
+               icon: "error",
+               title: "Access Denied",
+               text: "You must be logged in to register a complaint.",
+               confirmButtonColor: "#d33",
+             });
+             navigate("/login");
     }
+   
   };
-  
+
 
   return (
-    <div className="w-[100vw] md:pt-[] pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
+    <div className="w-[100vw] overflow-hidden md:pt-[] pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
       {/* Left Section */}
 
       
@@ -118,9 +132,7 @@ const Othello: React.FC = () => {
           <div className="flex flex-col justify-center items-center">
             <p className="md:text-6xl text-5xl font-black text-[#424347]">OTHELLO</p>
             <p className="text-[#696a70] px-[5vw] text-center">
-              Jenga is a game where players remove and restack blocks from a
-              tower without causing it to collapse. The structure becomes more
-              unstable with each turn, and the player who makes it fall loses.
+            Othello is a two-player strategy game where players take turns placing discs on an 8x8 grid, flipping their opponent’s discs by sandwiching them. The game ends when no moves are possible, and the player with the most discs of their color wins.
             </p>
           </div>
         </div>
@@ -181,35 +193,20 @@ const Othello: React.FC = () => {
       </div>
 
       {/* Right Section */}
-      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center md:button">
+      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center button">
         <p className="text-6xl text-center font-black text-[#424347]">HOW TO PLAY?</p>
 
         <p className="text-[#696a70] px-[5vw] text-center">
-          Genga, inspired by the classic game of Jenga, is a game of precision
-          and strategy where players take turns removing blocks from a carefully
-          constructed tower and then placing them on the top. The game begins
-          with a tower built from layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees rom layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below irelative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
+        Othello, also known as Reversi, is a strategy board game where two players compete to have the majority of their color discs on the board at the end of the game. The game is played on an 8x8 grid, and players take turns placing discs of their color (either black or white) on the board. The goal is to flip your opponent's discs by sandwiching them between your own discs, either horizontally, vertically, or diagonally.
 
+The game starts with four discs placed in the center, two black and two white, arranged diagonally. On a player's turn, they must place a disc of their color on the board in such a way that it traps one or more of the opponent's discs between the newly placed disc and another disc of their color. The trapped discs are flipped to the player's color.
+
+Players must make a valid move on each turn, and if no valid move is possible, the player must pass. The game continues until the board is full, or both players can no longer make valid moves. The player with the most discs of their color on the board at the end of the game wins.
+
+Othello is a game of strategy, where anticipating your opponent's moves and controlling the edges of the board is key to success.
         </p>
 
-        <button className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">
+        <button onClick={handleOpenOhelloPage} className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">
           Read More
         </button>
       </div>

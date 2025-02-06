@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const userEmail = sessionStorage.getItem("userEmail");
 // Define Slot Type
@@ -11,6 +12,9 @@ interface Slot {
 
 
 const Genga: React.FC = () => {
+
+const navigate=useNavigate()
+  const isUser = sessionStorage.getItem("role") === "user";
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
@@ -73,45 +77,61 @@ const Genga: React.FC = () => {
   // Handle booking a slot
   const handleBook = async () => {
     if (!selectedSlot || isAvailable !== true) return;
+    if(isUser){
+      try {
 
-    try {
-      const response = await fetch("http://localhost:4000/api/slots", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
-      });
-
-      const json = await response.json();
-
-      if (!response.ok) {
-        Swal.fire("Error", json.message || "Something went wrong!", "error");
-        return;
+  
+        const response = await fetch("http://localhost:4000/api/slots", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
+        });
+  
+        const json = await response.json();
+  
+        if (!response.ok) {
+          Swal.fire("Error", json.message || "Something went wrong!", "error");
+          return;
+        }
+  
+        Swal.fire("Success", "Slot booked successfully!", "success");
+  
+        // Update UI after booking
+        setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
+        setIsAvailable(null); // Reset availability state
+      } catch (error) {
+        console.error("Booking error:", error);
       }
 
-      Swal.fire("Success", "Slot booked successfully!", "success");
-
-      // Update UI after booking
-      setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
-      setIsAvailable(null); // Reset availability state
-    } catch (error) {
-      console.error("Booking error:", error);
+    }else{
+          Swal.fire({
+               icon: "error",
+               title: "Access Denied",
+               text: "You must be logged in to register a complaint.",
+               confirmButtonColor: "#d33",
+             });
+             navigate("/login");
     }
+   
   };
 
+  const handleOpenJengaPage = () => {
+    window.open('https://en.wikipedia.org/wiki/Jenga', '_blank');
+  };
+
+
   return (
-    <div className="w-[100vw] md:pt-[] pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
+    <div className="w-[100vw] md:pt-[]  overflow-hidden pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
       {/* Left Section */}
 
       
       <div className="md:w-[60vw]  px-[2vw] h-[100vh] flex flex-col justify-center items-center">
         <div className="px-[3vw] rounded-2xl flex flex-col md:flex-row justify-center items-center">
-          <img src="monopoly.jpg" className="md:w-[20vw] md:h-[20vw] rounded-2xl" />
+          <img src="jenga.jpg" className="md:w-[20vw] md:h-[20vw] rounded-2xl" />
           <div className="flex flex-col justify-center items-center">
             <p className="md:text-6xl text-5xl font-black text-[#424347]">JENGA</p>
             <p className="text-[#696a70] px-[5vw] text-center">
-              Jenga is a game where players remove and restack blocks from a
-              tower without causing it to collapse. The structure becomes more
-              unstable with each turn, and the player who makes it fall loses.
+Jenga is a block-stacking game where players take turns removing one block at a time from a tower and placing it on top without causing it to collapse. The game ends when the tower falls, and the last player to successfully place a block wins.
             </p>
           </div>
         </div>
@@ -172,32 +192,17 @@ const Genga: React.FC = () => {
       </div>
 
       {/* Right Section */}
-      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center md:button">
+      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center button">
         <p className="text-6xl text-center font-black text-[#424347]">HOW TO PLAY?</p>
 
         <p className="text-[#696a70] px-[5vw] text-center">
-          Genga, inspired by the classic game of Jenga, is a game of precision
-          and strategy where players take turns removing blocks from a carefully
-          constructed tower and then placing them on the top. The game begins
-          with a tower built from layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees rom layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below irelative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
+        Jenga is a classic skill-based board game where players take turns removing wooden blocks from a stacked tower and placing them on top. The objective is to keep the tower standing while making it increasingly unstable, requiring careful hand-eye coordination and strategic thinking.
 
+The game starts with 54 wooden blocks stacked in layers of three, alternating directions. On a player's turn, they must carefully remove a single block from anywhere below the highest complete layer and place it on top of the tower. Players can only use one hand at a time and must be cautious not to cause the tower to collapse.
+
+As the game progresses, the tower becomes more unstable, making each move riskier. If a player cannot find a stable block to remove or places a block in a way that makes the tower fall, they lose the game. The last player to successfully place a block before the tower collapses is the winner.
+
+Jenga is a game of patience, precision, and strategy. Controlling the balance of the tower and predicting the weakest points can help players outlast their opponents.
         </p>
 
         <button className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">

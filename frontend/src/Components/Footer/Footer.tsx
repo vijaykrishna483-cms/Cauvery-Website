@@ -10,7 +10,7 @@ const navigate=useNavigate()
   }
 
   return (
-    <div className='mt-[30vh]'>
+    <div className='md:mt-[0vh] mt-[30vh]'>
       <footer className="footer ">
   <div className="footer__parralax">
     <div className="footer__parralax-trees"></div>

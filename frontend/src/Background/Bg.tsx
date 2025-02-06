@@ -14,6 +14,8 @@ const slidingVariants = {
 const Bg = () => {
   const [open, setOpen] = useState(false);
   const isAdmin = sessionStorage.getItem("role") === "admin";
+  const isUser = sessionStorage.getItem("role") === "user";
+// const [isUser,setIsUser]=useState(true)
   const handleclick = () => {
     setOpen(prevState => !prevState); // Toggle the menu
   }
@@ -30,10 +32,14 @@ const handleComplaints=()=>{
   navigate('/admin')
 }
 
-const gotolog=()=>{
-  navigate('/login')
-}
-
+const gotolog = () => {
+  if (isUser) {
+    // If the user is logged in, remove the role from sessionStorage to log out
+    sessionStorage.removeItem("role"); // Remove role from sessionStorage to log out
+  }
+  // Navigate to the login page
+  navigate('/login');
+};
 const gameBook=()=>{
   navigate('/booking')
 }
@@ -132,7 +138,7 @@ const handleOpenInsta = () => {
               </motion.div>
    */}
               <motion.div onClick={gotolog} className='bg-[#323235] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
-              {isLoggedIn ?<p>Logout</p>:<p>Log In</p>}
+              {isUser ? <p>Logout</p>:<p>Log In</p>}
               </motion.div>
 
 

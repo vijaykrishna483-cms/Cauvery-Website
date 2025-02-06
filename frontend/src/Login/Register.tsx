@@ -103,13 +103,15 @@ const submitClick = async (e) => {
             setError(json.message); // Show error to user
             return;
         }
-        
-        alert('OTP verified successfully!'); // Success popup
+        Swal.fire("Success!", "OTP verified successfully!", "success");
+        // alert('OTP verified successfully!'); // Success popup
         setOpen(true)
-        navigate('/home');  
+        navigate('/');  
        
     } catch (err) {
-        alert('Error: Failed to verify OTP. Please try again.');
+      Swal.fire("Error", "Failed to verify OTP Please try again.", "error");
+
+        // alert('Error: Failed to verify OTP. Please try again.');
         // setError('Failed to verify OTP. Please try again.');
     }
 };
@@ -181,7 +183,7 @@ const handleLoginClick = async (e: React.FormEvent) => {
       sessionStorage.setItem("role", "user"); 
 
       Swal.fire("Success!", "Successfully Logged in", "success");
-      navigate('/home');
+      navigate('/');
 
   } catch (err) {
       console.error('Login error:', err);

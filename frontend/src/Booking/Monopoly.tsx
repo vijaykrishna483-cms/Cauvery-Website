@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const userEmail = sessionStorage.getItem("userEmail");
 // Define Slot Type
@@ -11,6 +12,13 @@ interface Slot {
 
 
 const Monopoly: React.FC = () => {
+
+      
+const navigate=useNavigate()
+const isUser = sessionStorage.getItem("role") === "user";
+
+
+
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
@@ -70,45 +78,54 @@ const Monopoly: React.FC = () => {
     setIsAvailable(!isBooked);
   };
   
-
-  // Handle booking a slot
-  const handleBook = async () => {
-    if (!selectedSlot || isAvailable !== true) return;
-  
-    try {
-      const response = await fetch("http://localhost:4000/api/slots", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          starttime,
-          endtime,
-          email: userEmail,
-          gameName: 'Monopoly',  // Make sure 'Risk' is a valid value in your enum
-        }),
-      });
-  
-      const json = await response.json();
-  
-      if (!response.ok) {
-        Swal.fire("Error", json.message || "Something went wrong!", "error");
-        console.error("Booking failed:", json.message);
-        return;
-      }
-  
-      Swal.fire("Success", "Slot booked successfully!", "success");
-  
-      // Update UI after booking
-      setSlots([...slots, { starttime, endtime, gameName: "Monopoly" }]);
-      setIsAvailable(null); // Reset availability state
-    } catch (error) {
-      console.error("Booking error:", error);
-      Swal.fire("Error", "Booking failed. Please try again.", "error");
-    }
+  const handleOpenMonopolyPage = () => {
+    window.open('https://en.wikipedia.org/wiki/Monopoly_(game)', '_blank');
   };
+  // Handle booking a slot
+   const handleBook = async () => {
+     if (!selectedSlot || isAvailable !== true) return;
+     if(isUser){
+       try {
+ 
+   
+         const response = await fetch("http://localhost:4000/api/slots", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
+         });
+   
+         const json = await response.json();
+   
+         if (!response.ok) {
+           Swal.fire("Error", json.message || "Something went wrong!", "error");
+           return;
+         }
+   
+         Swal.fire("Success", "Slot booked successfully!", "success");
+   
+         // Update UI after booking
+         setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
+         setIsAvailable(null); // Reset availability state
+       } catch (error) {
+         console.error("Booking error:", error);
+       }
+ 
+     }else{
+           Swal.fire({
+                icon: "error",
+                title: "Access Denied",
+                text: "You must be logged in to register a complaint.",
+                confirmButtonColor: "#d33",
+              });
+              navigate("/login");
+     }
+    
+   };
+ 
   
 
   return (
-    <div className="w-[100vw] md:pt-[] pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
+    <div className="w-[100vw] md:pt-[] pt-[6vh] overflow-hidden md:h-[100vh] md:flex-row flex-col flex">
       {/* Left Section */}
 
       
@@ -118,9 +135,7 @@ const Monopoly: React.FC = () => {
           <div className="flex flex-col justify-center items-center">
             <p className="md:text-6xl text-5xl font-black text-[#424347]">MONOPOLY</p>
             <p className="text-[#696a70] px-[5vw] text-center">
-              Jenga is a game where players remove and restack blocks from a
-              tower without causing it to collapse. The structure becomes more
-              unstable with each turn, and the player who makes it fall loses.
+            Monopoly is a board game where players buy and develop properties to bankrupt their opponents. The game ends when only one player remains financially solvent.
             </p>
           </div>
         </div>
@@ -185,31 +200,18 @@ const Monopoly: React.FC = () => {
         <p className="text-6xl text-center font-black text-[#424347]">HOW TO PLAY?</p>
 
         <p className="text-[#696a70] px-[5vw] text-center">
-          Genga, inspired by the classic game of Jenga, is a game of precision
-          and strategy where players take turns removing blocks from a carefully
-          constructed tower and then placing them on the top. The game begins
-          with a tower built from layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees rom layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below irelative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
+        Monopoly is a classic board game where the goal is to bankrupt your opponents by buying, trading, and developing properties. Players take turns rolling two dice and moving their game pieces around the board. When a player lands on an unowned property, they can choose to buy it. If they decide not to, the banker will auction it to other players.
 
+When you own properties, you can charge rent to players who land on them. The rent increases if you own all properties in a color set or if you build houses and hotels on the properties. To build, you must own all the properties in a color group, and houses must be built evenly across the set.
+
+There are special spaces like "Go," where you collect $200 every time you pass, "Chance" and "Community Chest" cards, which can either reward or penalize you, and "Jail," where players go when they roll certain dice combinations or land on "Go to Jail."
+
+Players can also trade properties with each other, and auctions are held for unpurchased properties. If you run out of money and can't pay rent or other fees, you may have to mortgage properties or even declare bankruptcy.
+
+The game continues until only one player remains, having accumulated the most assets and bankrupting all other players.
         </p>
 
-        <button className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">
+        <button onClick={handleOpenMonopolyPage} className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">
           Read More
         </button>
       </div>

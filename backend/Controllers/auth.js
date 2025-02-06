@@ -122,7 +122,7 @@ const slotAdd = async (req, res) => {
       const existSlot = await Slots.findOne({ starttime, endtime, gameName });
   
       if (existSlot) {
-        return res.status(400).json({ message: 'Sucessfully booked' });
+        return ;
       }
   
       // Create a new slot if it doesn't exist

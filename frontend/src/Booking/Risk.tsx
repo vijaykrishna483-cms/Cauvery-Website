@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const userEmail = sessionStorage.getItem("userEmail");
 // Define Slot Type
@@ -11,6 +12,12 @@ interface Slot {
 
 
 const Risk: React.FC = () => {
+
+
+
+      
+const navigate=useNavigate()
+const isUser = sessionStorage.getItem("role") === "user";
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
@@ -74,41 +81,47 @@ const Risk: React.FC = () => {
   // Handle booking a slot
   const handleBook = async () => {
     if (!selectedSlot || isAvailable !== true) return;
+    if(isUser){
+      try {
+
   
-    try {
-      const response = await fetch("http://localhost:4000/api/slots", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          starttime,
-          endtime,
-          email: userEmail,
-          gameName: 'Risk',  // Make sure 'Risk' is a valid value in your enum
-        }),
-      });
+        const response = await fetch("http://localhost:4000/api/slots", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
+        });
   
-      const json = await response.json();
+        const json = await response.json();
   
-      if (!response.ok) {
-        Swal.fire("Error", json.message || "Something went wrong!", "error");
-        console.error("Booking failed:", json.message);
-        return;
+        if (!response.ok) {
+          Swal.fire("Error", json.message || "Something went wrong!", "error");
+          return;
+        }
+  
+        Swal.fire("Success", "Slot booked successfully!", "success");
+  
+        // Update UI after booking
+        setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
+        setIsAvailable(null); // Reset availability state
+      } catch (error) {
+        console.error("Booking error:", error);
       }
-  
-      Swal.fire("Success", "Slot booked successfully!", "success");
-  
-      // Update UI after booking
-      setSlots([...slots, { starttime, endtime, gameName: "Risk" }]);
-      setIsAvailable(null); // Reset availability state
-    } catch (error) {
-      console.error("Booking error:", error);
-      Swal.fire("Error", "Booking failed. Please try again.", "error");
+
+    }else{
+          Swal.fire({
+               icon: "error",
+               title: "Access Denied",
+               text: "You must be logged in to register a complaint.",
+               confirmButtonColor: "#d33",
+             });
+             navigate("/login");
     }
+   
   };
-  
+
 
   return (
-    <div className="w-[100vw] md:pt-[] pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
+    <div className="w-[100vw] overflow-hidden md:pt-[] pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
     {/* Left Section */}
 
     
@@ -118,9 +131,7 @@ const Risk: React.FC = () => {
         <div className="flex flex-col justify-center items-center">
           <p className="md:text-6xl text-5xl font-black text-[#424347]">RISK</p>
             <p className="text-[#696a70] px-[5vw] text-center">
-              Jenga is a game where players remove and restack blocks from a
-              tower without causing it to collapse. The structure becomes more
-              unstable with each turn, and the player who makes it fall loses.
+            Risk is a strategy board game where players deploy armies, conquer territories, and battle opponents to achieve world domination. Players take turns reinforcing troops, attacking with dice rolls, and fortifying positions until one player wins.
             </p>
           </div>
         </div>
@@ -181,32 +192,19 @@ const Risk: React.FC = () => {
       </div>
 
       {/* Right Section */}
-      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center md:button">
+      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center button">
         <p className="text-6xl text-center font-black text-[#424347]">HOW TO PLAY?</p>
 
         <p className="text-[#696a70] px-[5vw] text-center">
-          Genga, inspired by the classic game of Jenga, is a game of precision
-          and strategy where players take turns removing blocks from a carefully
-          constructed tower and then placing them on the top. The game begins
-          with a tower built from layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees rom layers of blocks—each layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below irelative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
-          layer typically
-          consisting of three blocks placed side by side, with each successive
-          layer rotated 90 degrees relative to the one below it. The challenge
-          starts as soon as the tower is complete and players begin their turns.
+        Risk is a strategic board game where players compete to conquer territories and eliminate opponents to achieve world domination. The game is played on a world map divided into territories, which are grouped into continents. Players deploy armies, attack opponents, and fortify their positions to expand their control.
 
+At the start, players claim territories and place their armies. Each turn consists of three phases: reinforcement, where players receive additional armies based on controlled territories and continents; attack, where players can battle opponents using dice rolls; and fortification, where armies can be moved to strengthen key positions.
+
+Battles are determined by rolling dice, with attackers rolling up to three dice and defenders rolling up to two. The highest dice results are compared, and the player with the lower roll loses armies. Players can continue attacking until they decide to stop or run out of armies.
+
+Players earn territory cards by capturing at least one new territory per turn. These can be traded for extra reinforcements. The game continues until one player achieves the set victory conditions, which may vary based on the chosen game mode.
+
+Risk is a game of strategy, negotiation, and calculated aggression, where players must balance expansion, defense, and diplomacy to emerge victorious.
         </p>
 
         <button className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">

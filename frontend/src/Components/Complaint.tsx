@@ -11,6 +11,8 @@ interface User {
 
 
 const Complaint = () => {
+
+
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [roll, setRoll] = useState('');
@@ -87,7 +89,7 @@ useEffect(() => {
           text: "You must be logged in to register a complaint.",
           confirmButtonColor: "#d33",
         });
-        navigate("/"); // Redirect to login page
+        navigate("/login"); // Redirect to login page
         return;
       }
   
@@ -124,7 +126,7 @@ useEffect(() => {
   };
 
   return (
-    <div className='flex w-[100vw] md:mb-[] mb-[60vh] h-[100vh] justify-center items-center flex-col md:flex-row'>
+    <div className='flex w-[100vw] md:mb-[20vh] mb-[60vh] h-[100vh] justify-center items-center flex-col md:flex-row'>
       <div className='md:w-[50vw] w-[100vw] md:h-[100vh] flex flex-col justify-center items-center'>
         <h1 className='text-[#ffffffa7] text-center md:text-6xl text-3xl font-black'>CONTACT US</h1>
         <p className='md:text-xl text-sm font-light text-[#ffffff50] md:w-[35vw] text-center'>
