@@ -29,7 +29,7 @@ next()
 
 })
 
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 //routes
 app.use('/api',complaintRoutes)
@@ -40,9 +40,9 @@ mongoose.connect(process.env.MONGO_URI)
     console.log('its connected to db')
 
     //listen for requests
-app.listen(process.env.PORT, ()=>{
-    console.log('conncetd and listening on port 4000')
-})
+    app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`)
+    })
 })
 .catch(()=>{
     console.log("Not able to connect")
