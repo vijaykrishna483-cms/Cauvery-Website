@@ -25,6 +25,7 @@ const Complaint = () => {
 const [userlist, setUserlist] = useState<User[]>([]);
 
 const navigate=useNavigate()
+
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 // Check login status from sessionStorage
@@ -42,7 +43,7 @@ useEffect(() => {
 useEffect(() => {
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users'); // Ensure correct URL
+      const response = await fetch('https://cauvery-hostel-website.onrender.com/api/users'); // Ensure correct URL
       const data = await response.json();
       console.log("API Response:", data); // Debugging
 
@@ -93,7 +94,7 @@ useEffect(() => {
         return;
       }
   
-      const response = await fetch('http://localhost:4000/api/complaints', {
+      const response = await fetch('https://cauvery-hostel-website.onrender.com/api/complaints', {
         method: 'POST',
         body: JSON.stringify(complaint),
         headers: {
@@ -126,7 +127,7 @@ useEffect(() => {
   };
 
   return (
-    <div className='flex w-[100vw] md:mb-[20vh] mb-[60vh] h-[100vh] justify-center items-center flex-col md:flex-row'>
+    <div className='flex w-[100vw]  md:mb-[20vh] mb-[60vh] h-[100vh] justify-center items-center flex-col md:flex-row'>
       <div className='md:w-[50vw] w-[100vw] md:h-[100vh] flex flex-col justify-center items-center'>
         <h1 className='text-[#ffffffa7] text-center md:text-6xl text-3xl font-black'>CONTACT US</h1>
         <p className='md:text-xl text-sm font-light text-[#ffffff50] md:w-[35vw] text-center'>

@@ -45,7 +45,7 @@ const [active,setActive]=useState(false)
     const userData = { email, password };
 
     try {
-        const response = await fetch('http://localhost:4000/api/register', {
+        const response = await fetch('https://cauvery-hostel-website.onrender.com/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData),
@@ -63,7 +63,7 @@ const [active,setActive]=useState(false)
         setActive(true);
 
         // Request OTP Generation
-        const otpResponse = await fetch('http://localhost:4000/api/generate-otp', {
+        const otpResponse = await fetch('https://cauvery-hostel-website.onrender.com/api/generate-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email }),
@@ -88,7 +88,7 @@ const submitClick = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await fetch('http://localhost:4000/api/verify-otp', {
+        const response = await fetch('https://cauvery-hostel-website.onrender.com/api/verify-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ const [userlist, setUserlist] = useState<User[]>([]);
 useEffect(() => {
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users'); // Ensure correct URL
+      const response = await fetch('https://cauvery-hostel-website.onrender.com/api/users'); // Ensure correct URL
       const data = await response.json();
       console.log("API Response:", data); // Debugging
 

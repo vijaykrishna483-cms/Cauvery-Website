@@ -81,7 +81,7 @@ const navigate=useNavigate()
       try {
 
   
-        const response = await fetch("http://localhost:4000/api/slots", {
+        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),

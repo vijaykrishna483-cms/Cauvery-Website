@@ -2,8 +2,8 @@ import React from 'react'
 import './Testimonials.css'
 const Testimonials = () => {
   return (
-    <div>
-      <p className='md:text-[8vw] text-4xl md:text-6xl font-black text-[#ffffff2c] mb-[-10vh] text-center'>TESTIMONIALS</p>
+    <div className='mb-[30vh] md:mb-[0vh]'>
+      <p className='md:text-[8vw]   text-4xl md:text-6xl font-black text-[#ffffff2c] mb-[-10vh] text-center'>TESTIMONIALS</p>
     <div className="external ">
     <div className="horizontal-scroll-wrapper">
       <div className="img-wrapper slower">

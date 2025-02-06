@@ -31,7 +31,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/complaints');
+        const response = await fetch('https://cauvery-hostel-website.onrender.com/api/complaints');
         console.log("Raw Response:", response); // Debugging
 
         if (!response.ok) {
