@@ -220,7 +220,7 @@ setLogin(true)
        
        <input  
             type='text'
-             placeholder='Enter Your Gmail'
+             placeholder='Password'
              onChange={(e) => setpassword(e.target.value)} 
              value={password}
             className='w-[90%] text-white text-xl font-light bg-[#1b1c21] border-b-[0.1px] border-b-[#28282d]'
