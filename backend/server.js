@@ -1,53 +1,47 @@
-
-const express = require('express')
-require('dotenv').config()
-const mongoose = require('mongoose')
-const complaintRoutes = require('./routes/Routes')
+const express = require('express');
+require('dotenv').config();
+const mongoose = require('mongoose');
+const complaintRoutes = require('./routes/Routes');
 const cors = require('cors');
-const app=express()
+const app = express();
 
-app.use(cors());
+// Configure CORS (Choose ONE of these options)
 
-// ✅ If you want to allow only your frontend (More secure)
+// Option 1:  Allow all origins (NOT recommended for production)
+// app.use(cors());
+
+// Option 2:  Restrict to your frontend origin (Recommended for production)
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Use an env var for the frontend URL
     methods: 'GET,POST,PUT,DELETE',
-    credentials: true,
+    credentials: true, // If you need to send cookies
   })
 );
 
+// Middleware
+app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
+// Routes
+app.use('/api', complaintRoutes);
 
-//midleware
-app.use(express.json())
-
-app.use((req,res,next)=>{
-console.log(req.path,req.method)
-next()
-
-})
-
-// const port = process.env.PORT || 4000;
-
-//routes
-app.use('/api',complaintRoutes)
-
-//connect db
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
-.then(()=>{
-    console.log('its connected to db')
+  .then(() => {
+    console.log('Connected to MongoDB');
 
-    //listen for requests
-    const port = process.env.PORT || 4000;  // This allows you to fall back to port 4000 if no environment variable is set.
+    // Start the server
+    const port = process.env.PORT || 4000;
     app.listen(port, () => {
-       console.log(`Example app listening on port ${port}`);
+      console.log(`App listening on port ${port}`);
     });
-    
-})
-.catch(()=>{
-    console.log("Not able to connect")
-})
-
-
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+    process.exit(1); // Exit the process on connection error
+  });
