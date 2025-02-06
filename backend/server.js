@@ -45,7 +45,7 @@ app.listen(process.env.PORT, ()=>{
 })
 })
 .catch(()=>{
-    console.log(error)
+    console.log("Not able to connect")
 })
 
 
