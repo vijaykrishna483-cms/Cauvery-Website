@@ -13,9 +13,10 @@ const app = express();
 // Option 2:  Restrict to your frontend origin (Recommended for production)
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'https://cauverytest.netlify.app', // Use an env var for the frontend URL
+    origin: process.env.FRONTEND_URL || 'https://cauverytest.netlify.app',
+    // origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     methods: 'GET,POST,PUT,DELETE',
-    credentials: true, // If you need to send cookies
+    credentials: true, 
   })
 );
 
@@ -31,6 +32,8 @@ app.use((req, res, next) => {
 app.use('/api', complaintRoutes);
 
 // Connect to MongoDB
+
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB');
