@@ -7,7 +7,8 @@ const {
     generateOtp,
     verifyOtp,
     getallUsers,
-    slotAdd
+    slotAdd,
+    getAllslot
 
 } = require('../Controllers/auth')
 
@@ -28,7 +29,7 @@ router.post('/verify-otp' ,verifyOtp)
 
 //slot adding
 router.post('/slots' ,slotAdd)
-
+router.get('/allslots' ,getAllslot)
 
 
 //get all complaints

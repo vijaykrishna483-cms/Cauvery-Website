@@ -76,7 +76,7 @@ const [active,setActive]=useState(false)
             return;
         }
 
-        console.log('OTP sent successfully:', otpJson);
+        console.log('OTP sent successfully');
 
     } catch (err) {
         console.error('Error:', err);

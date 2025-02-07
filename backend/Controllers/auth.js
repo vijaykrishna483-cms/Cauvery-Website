@@ -3,6 +3,7 @@ const crypto=require('crypto')
 const {sendOtp} = require('../utils/sendMail')
 const Slots=require('../models/Slot')
 const {sendConfirmation}=require('../utils/bookedMail')
+const Slot = require('../models/Slot')
 const register = async (req, res) => {
     const { email, password } = req.body;
 
@@ -112,7 +113,16 @@ const getallUsers = async (req, res) => {
 };
 
 
+const getAllslot= async (req,res)=>{
 
+    try{
+        const response = await Slot.find({}).sort({createdAt:-1});
+        console.log("fetching succesfull")
+        res.status(200).json(response)
+    }catch(err){
+        console.error("Error fetching slots");
+    }
+}
 
 const slotAdd = async (req, res) => {
     const { starttime, endtime, email, gameName } = req.body;
@@ -144,5 +154,6 @@ module.exports={
     generateOtp,
     register,
     getallUsers,
-    slotAdd
+    slotAdd,
+    getAllslot
 }
