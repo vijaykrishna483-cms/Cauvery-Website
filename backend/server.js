@@ -13,7 +13,7 @@ const app = express();
 // Option 2:  Restrict to your frontend origin (Recommended for production)
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Use an env var for the frontend URL
+    origin: process.env.FRONTEND_URL || 'https://cauverytest.netlify.app', // Use an env var for the frontend URL
     methods: 'GET,POST,PUT,DELETE',
     credentials: true, // If you need to send cookies
   })
