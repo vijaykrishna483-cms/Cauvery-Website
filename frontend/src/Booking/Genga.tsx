@@ -26,7 +26,7 @@ const navigate=useNavigate()
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/slots");
+        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots");
         const data = await response.json();
 
         if (response.ok) {

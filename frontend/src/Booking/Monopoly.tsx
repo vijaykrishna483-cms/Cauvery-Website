@@ -88,7 +88,7 @@ const isUser = sessionStorage.getItem("role") === "user";
        try {
  
    
-         const response = await fetch("https://cauvery-hostel-website.onrender.com/slots", {
+         const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots", {
            method: "POST",
            headers: { "Content-Type": "application/json" },
            body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
