@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-const userEmail = sessionStorage.getItem("userEmail");
+
+
+
+
+
 // Define Slot Type
 interface Slot {
   gameName: string;
@@ -14,6 +18,8 @@ interface Slot {
 const Genga: React.FC = () => {
 
 const navigate=useNavigate()
+
+const userEmail = sessionStorage.getItem("userEmail");
   const isUser = sessionStorage.getItem("role") === "user";
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots

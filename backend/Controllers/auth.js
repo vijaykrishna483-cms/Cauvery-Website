@@ -130,19 +130,22 @@ const slotAdd = async (req, res) => {
     try {
       // Check if the slot is already booked for the same game
       const existSlot = await Slots.findOne({ starttime, endtime, gameName });
-  
+      console.log('slot ndo nokkks')
       if (existSlot) {
         return res.status(400).json({ message: "Slot already booked" });
       }
-      
-      console.log('slot booked sucessfully')
-      // Create a new slot if it doesn't exist
-      const newSlot = await Slots.create({ starttime, endtime, gameName });
-      console.log("New slot created:", newSlot); // Debugging
-      
-      await sendConfirmation(email, starttime, endtime, gameName);
-      console.log('slot booked sucessfully')
-      return res.status(201).json({ message: 'Slot booked successfully' });
+      else{
+        console.log('slot nd elsekk keri')
+        const newSlot = await Slots.create({ starttime, endtime, gameName });
+        console.log("New slot created:", newSlot); // Debugging
+        console.log('Just before sending mail')
+        await sendConfirmation(email, starttime, endtime, gameName);
+        console.log('slot booked sucessfully')
+        return res.status(201).json({ message: 'Slot booked successfully' });
+
+
+      }
+
     } catch (err) {
       console.error("Error in adding slot:", err);
       return res.status(500).json({ message: 'Server error', error: err.message });
