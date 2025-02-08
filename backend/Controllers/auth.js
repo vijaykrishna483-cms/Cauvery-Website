@@ -138,7 +138,7 @@ const slotAdd = async (req, res) => {
       // Create a new slot if it doesn't exist
       const newSlot = await Slots.create({ starttime, endtime, gameName });
       await sendConfirmation(email, starttime, endtime, gameName);
-      
+      alert('slot booked sucessfully')
       return res.status(201).json({ message: 'Slot booked successfully' });
     } catch (err) {
       console.error("Error in adding slot:", err);

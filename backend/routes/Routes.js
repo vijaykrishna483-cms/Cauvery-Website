@@ -29,7 +29,7 @@ router.post('/verify-otp' ,verifyOtp)
 
 //slot adding
 router.post('/slots' ,slotAdd)
-router.get('/allslots' ,getAllslot)
+router.get('/slots' ,getAllslot)
 
 
 //get all complaints

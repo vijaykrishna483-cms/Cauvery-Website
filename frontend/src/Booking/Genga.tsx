@@ -26,7 +26,7 @@ const navigate=useNavigate()
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/allslots");
+        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots");
         const data = await response.json();
 
         if (response.ok) {
@@ -76,7 +76,10 @@ const navigate=useNavigate()
 
   // Handle booking a slot
   const handleBook = async () => {
-    if (!selectedSlot || isAvailable !== true) return;
+    if (!selectedSlot || isAvailable !== true) {
+      // Swal.fire("Error", "Please select a slot first!", "error");
+      return;
+    }
     if(isUser){
       try {
 
@@ -93,8 +96,10 @@ const navigate=useNavigate()
           Swal.fire("Error", json.message || "Something went wrong!", "error");
           return;
         }
-  
-        Swal.fire("Success", "Slot booked successfully!", "success");
+        else{
+          Swal.fire("Success", "Slot booked successfully!", "success");
+
+        }
   
         // Update UI after booking
         setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
@@ -107,7 +112,7 @@ const navigate=useNavigate()
           Swal.fire({
                icon: "error",
                title: "Access Denied",
-               text: "You must be logged in to register a complaint.",
+               text: "You must be logged in to Book Games.",
                confirmButtonColor: "#d33",
              });
              navigate("/login");
@@ -205,7 +210,7 @@ As the game progresses, the tower becomes more unstable, making each move riskie
 Jenga is a game of patience, precision, and strategy. Controlling the balance of the tower and predicting the weakest points can help players outlast their opponents.
         </p>
 
-        <button className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">
+        <button onClick={handleOpenJengaPage} className="px-[2vw] py-[1vh] text-xl rounded-2xl bg-[#696a70]">
           Read More
         </button>
       </div>
