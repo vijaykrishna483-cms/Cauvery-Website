@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-const userEmail = sessionStorage.getItem("userEmail");
+
 // Define Slot Type
 interface Slot {
   gameName: string;
@@ -18,7 +18,7 @@ const navigate=useNavigate()
 const isUser = sessionStorage.getItem("role") === "user";
 
 
-
+const userEmail = sessionStorage.getItem("userEmail");
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
