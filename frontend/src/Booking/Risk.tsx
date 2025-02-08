@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-const userEmail = sessionStorage.getItem("userEmail");
 // Define Slot Type
 interface Slot {
   gameName: string;
@@ -14,6 +13,7 @@ interface Slot {
 const Risk: React.FC = () => {
 
 
+  const userEmail = sessionStorage.getItem("userEmail");
 
       
 const navigate=useNavigate()

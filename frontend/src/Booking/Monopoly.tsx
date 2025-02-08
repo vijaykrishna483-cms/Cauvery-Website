@@ -83,7 +83,8 @@ const userEmail = sessionStorage.getItem("userEmail");
   };
   // Handle booking a slot
    const handleBook = async () => {
-     if (!selectedSlot || isAvailable !== true) return;
+     if (!selectedSlot || isAvailable !== true) 
+      {return;}
      if(isUser){
        try {
  
