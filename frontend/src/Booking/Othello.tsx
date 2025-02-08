@@ -91,7 +91,7 @@ const isUser = sessionStorage.getItem("role") === "user";
         const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
+          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Othello' }),
         });
   
         const json = await response.json();
@@ -104,7 +104,7 @@ const isUser = sessionStorage.getItem("role") === "user";
         Swal.fire("Success", "Slot booked successfully!", "success");
   
         // Update UI after booking
-        setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
+        setSlots([...slots, { starttime, endtime,gameName:"Othello" }]);
         setIsAvailable(null); // Reset availability state
       } catch (error) {
         console.error("Booking error:", error);
