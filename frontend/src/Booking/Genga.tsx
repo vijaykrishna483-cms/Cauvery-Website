@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Bg from "../Background/Bg";
 
-
+import '../Components/Home.css'
 
 
 
@@ -132,11 +133,11 @@ const userEmail = sessionStorage.getItem("userEmail");
 
 
   return (
-    <div className="w-[100vw] md:pt-[]  overflow-hidden pt-[6vh] md:h-[100vh] md:flex-row flex-col flex">
+    <div className="w-[100vw] md:pt-[]  relative z-20  overflow-hidden  md:h-[100vh] md:flex-row flex-col flex">
       {/* Left Section */}
-
+{/* <Bg/> */}
       
-      <div className="md:w-[60vw]  px-[2vw] h-[100vh] flex flex-col justify-center items-center">
+      <div className="md:w-[60vw] px-[2vw]  md:px-[5vw] h-[100vh] flex flex-col justify-center items-center">
         <div className="px-[3vw] rounded-2xl flex flex-col md:flex-row justify-center items-center">
           <img src="jenga.jpg" className="md:w-[20vw] md:h-[20vw] rounded-2xl" />
           <div className="flex flex-col justify-center items-center">
@@ -148,11 +149,11 @@ Jenga is a block-stacking game where players take turns removing one block at a 
         </div>
 
         {/* Slot Selection */}
-        <div className="flex flex-col mt-[5vh] gap-[2vh] justify-center items-center">
+        <div className="flex relative z-20 flex-col mt-[5vh] gap-[2vh] justify-center items-center">
           <p className="text-[#696a70] md:text-3xl">Choose the Slot You Want to Play:</p>
 
           <select
-            className="w-full rounded-xl px-3 h-10 bg-[#c0bebe3f] p-2 mt-3"
+            className="w-full relative z-20 rounded-xl px-3 h-10 bg-[#c0bebe3f] p-2 mt-3"
             onChange={handleSlotChange}
             value={selectedSlot}
           >
@@ -203,10 +204,10 @@ Jenga is a block-stacking game where players take turns removing one block at a 
       </div>
 
       {/* Right Section */}
-      <div className="md:w-[40vw] md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center button">
+      <div className="md:w-[40vw]  md:mt-[0vh] mt-[45vh] relative h-[100vh] flex flex-col justify-center gap-[3vh] items-center button">
         <p className="text-6xl text-center font-black text-[#424347]">HOW TO PLAY?</p>
 
-        <p className="text-[#696a70] px-[5vw] text-center">
+        <p className="text-[#696a70]  px-[5vw] text-center">
         Jenga is a classic skill-based board game where players take turns removing wooden blocks from a stacked tower and placing them on top. The objective is to keep the tower standing while making it increasingly unstable, requiring careful hand-eye coordination and strategic thinking.
 
 The game starts with 54 wooden blocks stacked in layers of three, alternating directions. On a player's turn, they must carefully remove a single block from anywhere below the highest complete layer and place it on top of the tower. Players can only use one hand at a time and must be cautious not to cause the tower to collapse.

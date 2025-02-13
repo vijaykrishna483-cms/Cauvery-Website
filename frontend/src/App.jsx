@@ -39,15 +39,18 @@ function App() {
         {/* <Route path="/admin" element={<Admin/>} /> */}
        
        
-
-<Route
+        <Route path="/admin" element={<ProtectedRoute isAdmin={isAdmin}>
+          
+        <Admin />
+        </ProtectedRoute>} />
+{/* <Route
           path="/admin"
           element={
             <ProtectedRoute isAdmin={isAdmin}>
               <Admin />
             </ProtectedRoute>
           }
-        />
+        /> */}
       </Routes>
     </Router>
 

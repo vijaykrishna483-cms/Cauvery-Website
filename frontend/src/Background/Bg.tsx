@@ -53,6 +53,7 @@ useEffect(() => {
   if (userRole) {
     setIsLoggedIn(true);
   }
+
 }, []);
 const handleOpenInsta = () => {
   window.open('https://www.instagram.com/cauveryhostel/', '_blank'); // Opens in a new tab
@@ -71,7 +72,7 @@ const handleOpenInsta = () => {
         {/* Left Section - Logo & Social Icons */}
         <motion.div className='flex flex-col justify-between h-[100vh] py-[2vh] md:py-[6vh] '>
           <motion.div>  
-            <img src='logo.png' className='opacity-25 md:w-[2vw]' alt="Logo" />
+            <img src='logos.png' className='opacity-100 md:w-[5vw] rounded-full' alt="Logo" />
           </motion.div>
 
           <motion.div className='flex flex-col gap-[3vh]'>
@@ -138,7 +139,7 @@ const handleOpenInsta = () => {
               </motion.div>
    */}
               <motion.div onClick={gotolog} className='bg-[#323235] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
-              {isUser ? <p>Logout</p>:<p>Log In</p>}
+              {(isUser || isAdmin) ? <p>Logout</p> : <p>Log In</p>}
               </motion.div>
 
 
