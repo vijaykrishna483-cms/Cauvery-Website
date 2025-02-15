@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const complaintRoutes = require('./routes/Routes');
 const cors = require('cors');
 const app = express();
+const cron = require('node-cron');
+const Slot = require('./models/Slot'); // Importing the Slot model
 
 // Configure CORS (Choose ONE of these options)
 
@@ -30,6 +32,24 @@ app.use((req, res, next) => {
 app.use('/api', complaintRoutes);
 
 // Connect to MongoDB
+
+// Function to reset Slots collection at 12:00 AM
+const resetSlotsCollection = async () => {
+  try {
+    await Slot.deleteMany({}); // Delete all documents
+    console.log('✅ Slots collection reset successfully at 12:00 AM.');
+  } catch (error) {
+    console.error('❌ Error resetting Slots collection:', error);
+  }
+};
+
+// Schedule the reset task to run **every day at 12:00 AM**
+cron.schedule('0 0 * * *', () => {
+  console.log('🕛 Running scheduled task to reset Slots collection...');
+  resetSlotsCollection();
+});
+
+
 
 
 mongoose.connect(process.env.MONGO_URI)

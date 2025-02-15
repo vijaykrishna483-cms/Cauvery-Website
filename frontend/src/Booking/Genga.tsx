@@ -153,21 +153,22 @@ Jenga is a block-stacking game where players take turns removing one block at a 
           <p className="text-[#696a70] md:text-3xl">Choose the Slot You Want to Play:</p>
 
           <select
-            className="w-full relative z-20 rounded-xl px-3 h-10 bg-[#c0bebe3f] p-2 mt-3"
-            onChange={handleSlotChange}
-            value={selectedSlot}
-          >
-            <option value="">Select a slot</option>
-            {Array.from({ length: 12 }, (_, i) => {
-              const start = 8 + i * 2;
-              const end = start + 2;
-              return (
-                <option key={i} value={`${start}:00 - ${end}:00`}>
-                  {`${start}:00 - ${end}:00`}
-                </option>
-              );
-            })}
-          </select>
+  className="w-full relative z-20 rounded-xl px-3 h-10 bg-[#c0bebe3f] p-2 mt-3"
+  onChange={handleSlotChange}
+  value={selectedSlot}
+>
+  <option value="">Select a slot</option>
+  {Array.from({ length: 12 }, (_, i) => {
+    const start = i * 2;
+    const end = start + 2;
+    return (
+      <option key={i} value={`${start.toString().padStart(2, "0")}:00 - ${end.toString().padStart(2, "0")}:00`}>
+        {`${start.toString().padStart(2, "0")}:00 - ${end.toString().padStart(2, "0")}:00`}
+      </option>
+    );
+  })}
+</select>
+
 
           {/* Display selected slot */}
           {selectedSlot && (

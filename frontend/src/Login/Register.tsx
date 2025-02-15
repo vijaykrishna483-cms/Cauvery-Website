@@ -146,7 +146,7 @@ const Login = () => {
           password === ADMIN_PASSWORD) {
         sessionStorage.setItem("role", "admin");
         Swal.fire("Success!", "Admin login completed!", "success");
-        navigate("/admin");
+        navigate("/");
         return;
       }
 

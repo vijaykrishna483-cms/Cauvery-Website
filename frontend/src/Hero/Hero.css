@@ -1,0 +1,19 @@
+.maindiv{
+    background-image: url('mainbg.png');
+    background-position: center;
+}
+
+
+.blur-background {
+    background: #c5c3c308; /* Semi-transparent background */
+    backdrop-filter: blur(6px); /* Blurs everything behind the element */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    /* border-radius: 40px; */
+    padding: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3); /* X, Y, Blur, Spread, Color */
+
+  }
+  
+h1{
+    line-height: 170px;
+}

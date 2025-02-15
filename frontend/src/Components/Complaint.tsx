@@ -127,10 +127,10 @@ useEffect(() => {
   };
 
   return (
-    <div className='flex w-[100vw]  md:mb-[20vh] mb-[60vh] h-[100vh] justify-center items-center flex-col md:flex-row'>
+    <div id='complaints' className='flex w-[100vw]  md:mb-[20vh] mb-[60vh] h-[100vh] justify-center items-center flex-col md:flex-row'>
       <div className='md:w-[50vw] w-[100vw] md:h-[100vh] flex flex-col justify-center items-center'>
         <h1 className='text-[#ffffffa7] text-center md:text-6xl text-3xl font-black'>CONTACT US</h1>
-        <p className='md:text-xl text-sm font-light text-[#ffffff50] md:w-[35vw] text-center'>
+        <p className='md:text-xl text-sm font-light text-[#ffffff50] md:w-[35vw] w-[90%] text-center'>
           If you're experiencing any issues or have concerns regarding your stay, we encourage you to register your complaint here. Your comfort and well-being are our top priority, and we strive to create a positive and hassle-free environment for all residents.
         </p>
         <p className='md:text-xl font-bold mb-[1vh] mt-[2vh] text-[#ffffffa7]'>SECURITY</p>
@@ -151,7 +151,7 @@ useEffect(() => {
       </div>
 
       <div className='relative md:mt-[]  mt-[10vh]'>
-        <form onSubmit={handlesubmit} className='md:w-[40vw] w-[90vw] h-[75vh] rounded-xl gap-[5vh] bg-[#1b1c21] button flex flex-col justify-center items-center'>
+        <form onSubmit={handlesubmit} className='md:w-[40vw] w-[90vw] h-[75vh] rounded-xl gap-[5vh] bg-[#000] button flex flex-col justify-center items-center'>
           <h1 className='text-[#ffffffa7] md:text-5xl text-2xl pt-[2vh] font-black text-center'>
             REGISTER COMPLAINT <br />HERE!
           </h1>
@@ -160,21 +160,21 @@ useEffect(() => {
             type='text'
             onChange={(e) => setName(e.target.value)} 
             value={name}
-            className='w-[90%] text-white text-xl font-light bg-[#1b1c21] border-b-[0.1px] border-b-[#28282d]'
+            className='w-[90%] text-white text-xl font-light bg-[#000] border-b-[0.1px] border-b-[#28282d]'
           />
           <input  
             type='number'
             onChange={(e) => setRoom(e.target.value)} 
             value={room}
             placeholder='Room no.'  
-            className='w-[90%] text-white text-xl font-light bg-[#1b1c21] border-b-[0.1px] border-b-[#28282d]'
+            className='w-[90%] text-white text-xl font-light bg-[#000] border-b-[0.1px] border-b-[#28282d]'
           />
           <input  
             type='text'
             onChange={(e) => setRoll(e.target.value)} 
             value={roll}
             placeholder='Roll No.'  
-            className='w-[90%] text-white text-xl font-light bg-[#1b1c21] border-b-[0.1px] border-b-[#28282d]'
+            className='w-[90%] text-white text-xl font-light bg-[#000] border-b-[0.1px] border-b-[#28282d]'
           />
           <input  
             type="tel" 
@@ -182,13 +182,13 @@ useEffect(() => {
             value={phone}
             placeholder="Contact No:"
             pattern="\d{10}"
-            className="w-[90%] text-white text-xl font-light bg-[#1b1c21] border-b-[0.1px] border-b-[#28282d]"
+            className="w-[90%] text-white text-xl font-light bg-[#000] border-b-[0.1px] border-b-[#28282d]"
           />
           <textarea 
             onChange={(e) => setComplaint(e.target.value)} 
             value={complaints} 
             placeholder='Write your complaint here!' 
-            className='w-[90%] text-white text-xl font-light bg-[#1b1c21] border-b-[0.1px] border-b-[#28282d]'
+            className='w-[90%] text-white text-xl font-light bg-[#000] border-b-[0.1px] border-b-[#28282d]'
           />
           <button
             disabled={!name || !room || !roll || !complaints || !phone}

@@ -17,11 +17,11 @@ const slotSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Tracks createdAt and updatedAt fields automatically
+    timestamps: true, // Automatically tracks createdAt and updatedAt fields
   }
 );
 
-// Adding a compound index that includes gameName, starttime, and endtime
+// Compound index to prevent duplicate game slots
 slotSchema.index({ gameName: 1, starttime: 1, endtime: 1 }, { unique: true });
 
 module.exports = mongoose.model('Slots', slotSchema);

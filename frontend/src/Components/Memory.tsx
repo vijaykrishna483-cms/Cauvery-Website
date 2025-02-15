@@ -16,8 +16,8 @@ const Memory = () => {
 
     // <button className='button mt-[20vh]  rounded-xl py-[5px] px-[20px]'>View more</button>
     // </div>
-<div className='flex flex-col justify-center'>
-<p className='md:text-[8vw] text-5xl md:text-6xl font-black text-[#ffffff2c]  text-center'>MEMORIES</p>
+<div id='memories' className='flex flex-col justify-center'>
+<p className='md:text-[8vw] pt-[8vh] text-5xl md:text-6xl font-black text-[#ffffff2c]  text-center'>MEMORIES</p>
     <div className="external">
     <div className="horizontal-scroll-wrapper">
       <div className="img-wrapper slower">
