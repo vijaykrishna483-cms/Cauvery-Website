@@ -7,6 +7,7 @@ import Bg from '../Background/Bg';
 import './Home.css';
 import Testimonials from './Testimonials';
 import Footer from './Footer/Footer'
+// import Council from '../Council/Council';
 const Home = () => {
   return (
     <div className='overflow-hidden bg-[#0c2a21]'>
@@ -21,6 +22,7 @@ const Home = () => {
         </div>
        
         <Memory />
+        {/* <Council/> */}
         <Testimonials/>
         <Complaint  />
        

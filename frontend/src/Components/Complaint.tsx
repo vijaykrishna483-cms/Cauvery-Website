@@ -151,7 +151,7 @@ useEffect(() => {
       </div>
 
       <div className='relative md:mt-[]  mt-[10vh]'>
-        <form onSubmit={handlesubmit} className='md:w-[40vw] w-[90vw] h-[75vh] rounded-xl gap-[5vh] bg-[#000] button flex flex-col justify-center items-center'>
+        <form onSubmit={handlesubmit} className='md:w-[40vw] w-[90vw] h-full rounded-xl gap-[5vh] bg-[#000] button flex flex-col justify-center items-center'>
           <h1 className='text-[#ffffffa7] md:text-5xl text-2xl pt-[2vh] font-black text-center'>
             REGISTER COMPLAINT <br />HERE!
           </h1>
