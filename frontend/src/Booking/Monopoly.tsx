@@ -33,7 +33,7 @@ const userEmail = sessionStorage.getItem("userEmail");
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("https://cauvery-production.up.railway.app//api/slots");
+        const response = await fetch("https://cauvery-production.up.railway.app/api/slots");
         const data = await response.json();
 
         if (response.ok) {

@@ -6,7 +6,7 @@ export default defineConfig({
 //   server: {
 //     proxy: {
 //         '/api': {
-//             target: 'https://cauvery-production.up.railway.app/',
+//             target: 'https://cauvery-production.up.railway.app',
 //             changeOrigin: true,
 //             secure: false,
 //         }

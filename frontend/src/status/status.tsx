@@ -19,7 +19,7 @@ const status = () => {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await fetch('https://cauvery-production.up.railway.app//api/complaints');
+        const response = await fetch('https://cauvery-production.up.railway.app/api/complaints');
         console.log("Raw Response:", response); // Debugging
 
         if (!response.ok) {

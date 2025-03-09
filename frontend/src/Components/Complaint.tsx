@@ -98,7 +98,7 @@ useEffect(() => {
         return;
       }
   
-      const response = await fetch('https://cauvery-production.up.railway.app//api/complaints', {
+      const response = await fetch('https://cauvery-production.up.railway.app/api/complaints', {
         method: 'POST',
         body: JSON.stringify(complaint),
         headers: {
