@@ -7,7 +7,7 @@ const Admin = ({ complaints, onDelete, onUpdate }) => {
   // ✅ Delete Complaint
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://cauvery-hostel-website.onrender.com/api/complaints/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/complaints/${id}`, {
         method: 'DELETE',
       });
 
@@ -26,7 +26,7 @@ const Admin = ({ complaints, onDelete, onUpdate }) => {
     const newResolvedStatus = !isResolved;
 
     try {
-      const response = await fetch(`https://cauvery-hostel-website.onrender.com/api/complaints/${complaints._id}`, {
+      const response = await fetch(`http://localhost:4000/api/complaints/${complaints._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

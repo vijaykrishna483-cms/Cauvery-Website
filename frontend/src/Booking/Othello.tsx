@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AppContent } from "../Context/Appcontext";
+import axios from "axios";
 // Define Slot Type
 interface Slot {
   gameName: string;
@@ -11,6 +13,7 @@ interface Slot {
 
 
 const Othello: React.FC = () => {
+const {backendUrl,isLoggedin}=useContext(AppContent)
 
   const userEmail = sessionStorage.getItem("userEmail");
 
@@ -20,7 +23,6 @@ const Othello: React.FC = () => {
       };
 
 const navigate=useNavigate()
-const isUser = sessionStorage.getItem("role") === "user";
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
@@ -32,7 +34,7 @@ const isUser = sessionStorage.getItem("role") === "user";
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots");
+        const response = await fetch("http://localhost:4000/api/slots");
         const data = await response.json();
 
         if (response.ok) {
@@ -82,45 +84,55 @@ const isUser = sessionStorage.getItem("role") === "user";
   
 
   // Handle booking a slot
-  const handleBook = async () => {
-    if (!selectedSlot || isAvailable !== true) return;
-    if(isUser){
-      try {
-
+   const handleBook = async (e) => {
+      e.preventDefault();
   
-        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Othello' }),
-        });
+      if (!selectedSlot || isAvailable !== true) return;
+      if(isLoggedin){
+        try {
+             
+       const { data }= await axios.post(`${backendUrl}/api/slots`, {
+       starttime:starttime,
+       endtime:endtime,
+        gameName:'Othello'
+        }); 
   
-        const json = await response.json();
+          // const response = await fetch("http://localhost:4000/api/slots", {
+          //   method: "POST",
+          //   headers: { "Content-Type": "application/json" },
+          //   body: JSON.stringify({ starttime, endtime ,gameName:'Risk' }),
+          // });
+    
+          // const json = await response.json();
+    
+          if (!data.booked) {
+            Swal.fire("Error", "Something went wrong!", "error");
+            return;
+          }
+    if(data.booked){
+      Swal.fire("Success", "Slot booked successfully!", "success");
+          // Update UI after booking
+          setSlots([...slots, { starttime, endtime,gameName:"Othello" }]);
+          setIsAvailable(null); // Reset availability state
   
-        if (!response.ok) {
-          Swal.fire("Error", json.message || "Something went wrong!", "error");
-          return;
+  
+    }
+      
+        } catch (error) {
+          console.error("Booking error:", error);
         }
   
-        Swal.fire("Success", "Slot booked successfully!", "success");
-  
-        // Update UI after booking
-        setSlots([...slots, { starttime, endtime,gameName:"Othello" }]);
-        setIsAvailable(null); // Reset availability state
-      } catch (error) {
-        console.error("Booking error:", error);
+      }else{
+            Swal.fire({
+                 icon: "error",
+                 title: "Access Denied",
+                 text: "You must be logged in to register a complaint.",
+                 confirmButtonColor: "#d33",
+               });
+               navigate("/login");
       }
-
-    }else{
-          Swal.fire({
-               icon: "error",
-               title: "Access Denied",
-               text: "You must be logged in to register a complaint.",
-               confirmButtonColor: "#d33",
-             });
-             navigate("/login");
-    }
-   
-  };
+     
+    };
 
 
   return (

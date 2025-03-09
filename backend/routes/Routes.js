@@ -4,31 +4,45 @@ const router = express.Router()
 // import {register, generateOtp,verifyOtp} from '../Controllers/auth'
 const {
     register,
-    generateOtp,
-    verifyOtp,
-    getallUsers,
+    login,
+    logout,
+   sendVerifyOtp,
+    verifyEmail,
     slotAdd,
-    getAllslot
+    getAllslot,
+    isAuthenticated,
+    sendResetOtp,
+    resetpassword
 
 } = require('../Controllers/auth')
 
 
-const Complaint=require('../models/ComplaintsModel')
+const Complaint=require('../models/ComplaintsModel');
+const userAuth = require('../middleware/userAuth');
+const { getuserData } = require('../Controllers/userController');
 
 //register
-router.get('/users' ,getallUsers)
+// router.get('/users' ,getallUsers)
 
 router.post('/register' ,register)
+router.post('/login' ,login)
+router.post('/logout' ,logout)
+router.post('/send-verify-otp' ,userAuth,sendVerifyOtp)
+router.post('/verify-account' ,userAuth,verifyEmail)
+router.get('/is-auth' ,userAuth,isAuthenticated
+)
 
-//generate
-router.post('/generate-otp' ,generateOtp)
+router.post('/send-reset-otp' ,sendResetOtp)
+router.post('/reset-password' ,resetpassword)
 
-//verify
-router.post('/verify-otp' ,verifyOtp)
+router.get('/data' ,userAuth,getuserData)
+
+
+
 
 
 //slot adding
-router.post('/slots' ,slotAdd)
+router.post('/slots',userAuth,slotAdd)
 router.get('/slots' ,getAllslot)
 
 

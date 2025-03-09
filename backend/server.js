@@ -6,7 +6,12 @@ const cors = require('cors');
 const app = express();
 const cron = require('node-cron');
 const Slot = require('./models/Slot'); // Importing the Slot model
+const cookieParser = require('cookie-parser');
 
+
+app.use(cookieParser()); // This will parse cookies and populate req.cookies
+
+// Your routes and middleware
 // Configure CORS (Choose ONE of these options)
 
 // Option 1:  Allow all origins (NOT recommended for production)
@@ -30,7 +35,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api', complaintRoutes);
-
+app.get('/',(req,res)=>res.send("API IS WORKING"))
 // Connect to MongoDB
 
 // Function to reset Slots collection at 12:00 AM

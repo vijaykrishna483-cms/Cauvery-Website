@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AppContent } from "../Context/Appcontext";
+import axios from "axios";
 
 // Define Slot Type
 interface Slot {
@@ -12,10 +14,11 @@ interface Slot {
 
 
 const Monopoly: React.FC = () => {
+const {backendUrl,isLoggedin}=useContext(AppContent)
 
       
 const navigate=useNavigate()
-const isUser = sessionStorage.getItem("role") === "user";
+// const isUser = sessionStorage.getItem("role") === "user";
 
 
 const userEmail = sessionStorage.getItem("userEmail");
@@ -30,7 +33,7 @@ const userEmail = sessionStorage.getItem("userEmail");
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots");
+        const response = await fetch("http://localhost:4000/api/slots");
         const data = await response.json();
 
         if (response.ok) {
@@ -82,46 +85,48 @@ const userEmail = sessionStorage.getItem("userEmail");
     window.open('https://en.wikipedia.org/wiki/Monopoly_(game)', '_blank');
   };
   // Handle booking a slot
-   const handleBook = async () => {
-     if (!selectedSlot || isAvailable !== true) 
-      {return;}
-     if(isUser){
-       try {
- 
-   
-         const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots", {
-           method: "POST",
-           headers: { "Content-Type": "application/json" },
-           body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Monopoly' }),
-         });
-   
-         const json = await response.json();
-   
-         if (!response.ok) {
-           Swal.fire("Error", json.message || "Something went wrong!", "error");
-           return;
-         }
-   
-         Swal.fire("Success", "Slot booked successfully!", "success");
-   
-         // Update UI after booking
-         setSlots([...slots, { starttime, endtime,gameName:"Monopoly" }]);
-         setIsAvailable(null); // Reset availability state
-       } catch (error) {
-         console.error("Booking error:", error);
-       }
- 
-     }else{
-           Swal.fire({
-                icon: "error",
-                title: "Access Denied",
-                text: "You must be logged in to register a complaint.",
-                confirmButtonColor: "#d33",
-              });
-              navigate("/login");
-     }
-    
-   };
+   const handleBook = async (e) => {
+      e.preventDefault();
+  
+      if (!selectedSlot || isAvailable !== true) return;
+      if(isLoggedin){
+        try {
+             
+       const { data }= await axios.post(`${backendUrl}/api/slots`, {
+       starttime:starttime,
+       endtime:endtime,
+        gameName:'Monopoly'
+        }); 
+  
+
+          if (!data.booked) {
+            Swal.fire("Error", "Something went wrong!", "error");
+            return;
+          }
+    if(data.booked){
+      Swal.fire("Success", "Slot booked successfully!", "success");
+          // Update UI after booking
+          setSlots([...slots, { starttime, endtime,gameName:"Monopoly" }]);
+          setIsAvailable(null); // Reset availability state
+  
+  
+    }
+      
+        } catch (error) {
+          console.error("Booking error:", error);
+        }
+  
+      }else{
+            Swal.fire({
+                 icon: "error",
+                 title: "Access Denied",
+                 text: "You must be logged in to register a complaint.",
+                 confirmButtonColor: "#d33",
+               });
+               navigate("/login");
+      }
+     
+    };
  
   
 

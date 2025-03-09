@@ -23,7 +23,7 @@ const Admin = () => {
     const fetchComplaints = async () => {
       try {
         const response = await fetch(
-          "https://cauvery-hostel-website.onrender.com/api/complaints"
+          "http://localhost:4000/api/complaints"
         );
 
         if (!response.ok) {

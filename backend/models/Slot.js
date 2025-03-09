@@ -5,7 +5,7 @@ const slotSchema = new mongoose.Schema(
     gameName: {
       type: String,
       required: true,
-      enum: ['Genga', 'Othello', 'Risk', 'Monopoly'], // List of games
+      enum: ['Jenga', 'Othello', 'Risk', 'Monopoly'], // List of games
     },
     starttime: {
       type: String,
@@ -24,4 +24,7 @@ const slotSchema = new mongoose.Schema(
 // Compound index to prevent duplicate game slots
 slotSchema.index({ gameName: 1, starttime: 1, endtime: 1 }, { unique: true });
 
-module.exports = mongoose.model('Slots', slotSchema);
+
+
+const slotModel= mongoose.model('Slots', slotSchema);
+module.exports =slotModel

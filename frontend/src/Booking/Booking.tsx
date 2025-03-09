@@ -11,7 +11,7 @@ const games = [
     description2: "Buy, sell, and trade properties to bankrupt your opponents!"
   },
   {
-    name: "GENGA",
+    name: "JENGA",
     image: "jenga.jpg",
     route: "/genga",
     description1: "Genga is a tower-building game requiring precision.",

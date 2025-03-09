@@ -4,6 +4,9 @@ import Swal from "sweetalert2";
 import Bg from "../Background/Bg";
 
 import '../Components/Home.css'
+import { AppContent } from "../Context/Appcontext";
+import { useContext } from "react";
+import axios from "axios";
 
 
 
@@ -20,8 +23,13 @@ const Genga: React.FC = () => {
 
 const navigate=useNavigate()
 
+
+
+
+const {backendUrl,isLoggedin}=useContext(AppContent)
+
 const userEmail = sessionStorage.getItem("userEmail");
-  const isUser = sessionStorage.getItem("role") === "user";
+  // const isUser = sessionStorage.getItem("role") === "user";
   // State Variables
   const [slots, setSlots] = useState<Slot[]>([]); // Stores booked slots
   const [selectedSlot, setSelectedSlot] = useState<string>(""); // Selected slot
@@ -33,7 +41,7 @@ const userEmail = sessionStorage.getItem("userEmail");
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots");
+        const response = await fetch(backendUrl+'/api/slots');
         const data = await response.json();
 
         if (response.ok) {
@@ -73,7 +81,7 @@ const userEmail = sessionStorage.getItem("userEmail");
      // Check if slot is booked for the selected game (including Risk)
      const isBooked = slots.some(
        (slot) =>
-         slot.gameName === "Genga" && // Check if the slot's game name matches the selected game
+         slot.gameName === "Jenga" && // Check if the slot's game name matches the selected game
          slot.starttime === starttime && // Check if starttime matches
          slot.endtime === endtime // Check if endtime matches
      );
@@ -82,35 +90,34 @@ const userEmail = sessionStorage.getItem("userEmail");
    };
 
   // Handle booking a slot
-  const handleBook = async () => {
-    if (!selectedSlot || isAvailable !== true) {
-      // Swal.fire("Error", "Please select a slot first!", "error");
-      return;
-    }
-    if(isUser){
-      try {
+  const handleBook = async (e) => {
+    e.preventDefault();
 
+    if (!selectedSlot || isAvailable !== true) return;
+    if(isLoggedin){
+      try {
+           
+     const { data }= await axios.post(`${backendUrl}/api/slots`, {
+     starttime:starttime,
+     endtime:endtime,
+      gameName:'Jenga'
+      }); 
+
+      
   
-        const response = await fetch("https://cauvery-hostel-website.onrender.com/api/slots", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ starttime, endtime ,email:userEmail,gameName:'Genga' }),
-        });
-  
-        const json = await response.json();
-  
-        if (!response.ok) {
-          Swal.fire("Error", json.message || "Something went wrong!", "error");
+        if (!data.booked) {
+          Swal.fire("Error", "Something went wrong!", "error");
           return;
         }
-        else{
-          Swal.fire("Success", "Slot booked successfully!", "success");
-
-        }
-  
+  if(data.booked){
+    Swal.fire("Success", "Slot booked successfully!", "success");
         // Update UI after booking
-        setSlots([...slots, { starttime, endtime,gameName:"Genga" }]);
+        setSlots([...slots, { starttime, endtime,gameName:"Jenga" }]);
         setIsAvailable(null); // Reset availability state
+
+
+  }
+    
       } catch (error) {
         console.error("Booking error:", error);
       }
@@ -119,14 +126,13 @@ const userEmail = sessionStorage.getItem("userEmail");
           Swal.fire({
                icon: "error",
                title: "Access Denied",
-               text: "You must be logged in to Book Games.",
+               text: "You must be logged in to register a complaint.",
                confirmButtonColor: "#d33",
              });
              navigate("/login");
     }
    
   };
-
   const handleOpenJengaPage = () => {
     window.open('https://en.wikipedia.org/wiki/Jenga', '_blank');
   };

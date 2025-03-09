@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FiPhoneCall } from "react-icons/fi";
 import './Memory.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
+import { AppContent } from '../Context/Appcontext';
 interface User {
   email: string;
   password: string;
@@ -26,16 +27,19 @@ const [userlist, setUserlist] = useState<User[]>([]);
 
 const navigate=useNavigate()
 
-const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 // Check login status from sessionStorage
-useEffect(() => {
-  const userRole = sessionStorage.getItem("role"); // "admin" or "user"
-  if (userRole) {
-    setIsLoggedIn(true);
-  }
-}, []);
+// useEffect(() => {
+//   const userRole = sessionStorage.getItem("role"); // "admin" or "user"
+//   if (userRole) {
+//     setIsLoggedIn(true);
+//   }
+// }, []);
 
+
+
+
+const {backendUrl,isLoggedin}=useContext(AppContent)
 
 
 
@@ -43,7 +47,7 @@ useEffect(() => {
 useEffect(() => {
   const fetchUsers = async () => {
     try {
-      const response = await fetch('https://cauvery-hostel-website.onrender.com/api/users'); // Ensure correct URL
+      const response = await fetch(backendUrl+'/api/data'); // Ensure correct URL
       const data = await response.json();
       console.log("API Response:", data); // Debugging
 
@@ -83,7 +87,7 @@ useEffect(() => {
 
     try {
 
-      if (!isLoggedIn) {
+      if (!isLoggedin ) {
         Swal.fire({
           icon: "error",
           title: "Access Denied",
@@ -94,7 +98,7 @@ useEffect(() => {
         return;
       }
   
-      const response = await fetch('https://cauvery-hostel-website.onrender.com/api/complaints', {
+      const response = await fetch('http://localhost:4000/api/complaints', {
         method: 'POST',
         body: JSON.stringify(complaint),
         headers: {
