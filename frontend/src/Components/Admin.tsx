@@ -23,7 +23,7 @@ const Admin = () => {
     const fetchComplaints = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/complaints"
+          "https://cauvery-production.up.railway.app//api/complaints"
         );
 
         if (!response.ok) {

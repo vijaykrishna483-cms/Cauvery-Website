@@ -8,7 +8,7 @@ const Temp = ({ complaints, onDelete, onUpdate }) => {
   // ✅ Delete Complaint
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/complaints/${id}`, {
+      const response = await fetch(`https://cauvery-production.up.railway.app//api/complaints/${id}`, {
         method: 'DELETE',
       });
 
@@ -27,7 +27,7 @@ const Temp = ({ complaints, onDelete, onUpdate }) => {
     const newResolvedStatus = !isResolved;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/complaints/${complaints._id}`, {
+      const response = await fetch(`https://cauvery-production.up.railway.app//api/complaints/${complaints._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

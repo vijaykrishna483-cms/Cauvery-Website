@@ -31,7 +31,7 @@ const navigate=useNavigate()
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/slots");
+        const response = await fetch("https://cauvery-production.up.railway.app//api/slots");
         const data = await response.json();
 
         if (response.ok) {
@@ -94,7 +94,7 @@ const navigate=useNavigate()
       gameName:'Risk'
       }); 
 
-        // const response = await fetch("http://localhost:4000/api/slots", {
+        // const response = await fetch("https://cauvery-production.up.railway.app//api/slots", {
         //   method: "POST",
         //   headers: { "Content-Type": "application/json" },
         //   body: JSON.stringify({ starttime, endtime ,gameName:'Risk' }),
