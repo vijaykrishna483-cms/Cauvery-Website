@@ -102,12 +102,12 @@ navigate('/')
     <motion.div     className={`bg-container w-[100vw] h-[100vh] fixed  ${open ? 'z-50' : 'z-0'}`}>
       <img src='blur.png' className='absolute top-[-140vh]' alt="Blur Background"/>
 
-      <motion.div className=' flex flex-row justify-between w-[100vw] h-[100vh] px-[2vw]'>
+      <motion.div className=' flex flex-row justify-between w-[100vw] h-[100vh] px-[2vw]  '>
 
         {/* Left Section - Logo & Social Icons */}
         <motion.div className='flex flex-col justify-between h-[100vh] py-[vh] md:py-[6vh] '>
           <motion.div className=''>  
-            <img src='logos.png' className='opacity-100 md:w-[5vw] w-[20vw] rounded-full' alt="Logo" />
+            <img src='logos.png' className='opacity-100 md:w-[5vw] md:mt-[0] mt-[2vh] w-[20vw] rounded-full' alt="Logo" />
           </motion.div>
 
           <motion.div className='flex flex-col gap-[3vh]'>
@@ -146,33 +146,33 @@ navigate('/')
               {/* <motion.div className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
                 Memories
               </motion.div> */}
-              <motion.div onClick={toHome} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              <motion.div onClick={toHome} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw] py-[1vh] rounded-xl'>
                 Home
               </motion.div>
 
-              <motion.div  onClick={() => scrollToSection("complaints")} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              <motion.div  onClick={() => scrollToSection("complaints")} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 Contact Us
               </motion.div>
 
-              {/* <motion.div className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              {/* <motion.div className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 Testimonials
               </motion.div> */}
 
-              <motion.div onClick={gameBook} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              <motion.div onClick={gameBook} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 Game Booking
               </motion.div>
 
-              {/* <motion.div className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              {/* <motion.div className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 TV Room Booking
               </motion.div> */}
-              {isAdmin? <> <motion.div onClick={handleComplaints} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              {isAdmin? <> <motion.div onClick={handleComplaints} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 Complaints
               </motion.div>
                  </>:
-                <motion.div onClick={statusComplaintts} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+                <motion.div onClick={statusComplaintts} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 Complaint Status
               </motion.div>}
-              {/* <motion.div onClick={statusComplaintts} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              {/* <motion.div onClick={statusComplaintts} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
                 Complaint Status
               </motion.div>
    */}
@@ -180,13 +180,13 @@ navigate('/')
 
 
 {/* {!userData.isAccountVerified &&
-  <motion.div  className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+  <motion.div  className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
 Verify Email
               </motion.div> } */}
 
 
 
-              <motion.div onClick={gotolog} className='bg-[#37432e] text-xl text-[#989696] button w-[80%] px-[2vw] py-[1vh] rounded-xl'>
+              <motion.div onClick={gotolog} className='bg-[#37432e] md:text-xl text-lg text-[#989696] button w-[80%] md:px-[2vw] px-[6vw]  py-[1vh] rounded-xl'>
      
               {isLoggedin ? <p onClick={logout}>Logout</p> : <p>Log In</p>}
               </motion.div>

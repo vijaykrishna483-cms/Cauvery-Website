@@ -88,7 +88,7 @@ const onsubmithandler = async (e) => {
     <motion.div className='flex w-[100vw] h-[100vh] justify-center items-center align-middle'>
       <motion.div className='flex justify-center items-center align-middle'>
       
-          <form onSubmit={onsubmithandler} className='md:w-[30vw] md:py-[2vh] w-[60vw] h-[75vh] rounded-xl gap-[5vh] bg-[#1b1c21] button flex flex-col justify-center items-center'>
+          <form onSubmit={onsubmithandler} className='md:w-[30vw] md:py-[2vh] w-[90vw] h-[75vh] rounded-xl gap-[5vh] bg-[#1b1c21] button flex flex-col justify-center items-center'>
             <h1 className='text-[#ffffffa7] md:text-4xl text-2xl pt-[2vh] font-black text-center'>
             {state==='sign up' ? 'Create Account ': 'Login'}  
             </h1>
@@ -125,8 +125,8 @@ const onsubmithandler = async (e) => {
             <p onClick={()=>navigate('/reset-password')} className='pt-[1vh] mb- cursor-pointer text-indigo-500'>Forget Password?</p>
            
            
-            {state==='sign up'  ? (       <p className='text-[#b0b1b2] text-center text-lg '>Already Have an account? <span onClick={()=>setState('Login')} className='text-blue-400 underline cursor-pointer'>Login here</span></p>
-):(          <p className='text-[#b0b1b2] text-center text-lg '>Don't have an account? <span onClick={()=>setState('sign up')} className='text-blue-400 underline cursor-pointer'>Sign up</span></p>
+            {state==='sign up'  ? (       <p className='text-[#b0b1b2] text-center text-sm md:text-lg '>Already Have an account? <span onClick={()=>setState('Login')} className='text-blue-400 underline cursor-pointer'>Login here</span></p>
+):(          <p className='text-[#b0b1b2] text-center text-sm md:text-lg '>Don't have an account? <span onClick={()=>setState('sign up')} className='text-blue-400 underline cursor-pointer'>Sign up</span></p>
 )}
 
            
