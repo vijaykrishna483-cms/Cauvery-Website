@@ -31,12 +31,13 @@ const register = async (req, res) => {
         console.log('Generated Token:', token);
 
         
-        res.cookie('token',token,{
-            httpOnly:true,
-            secure:true,
-            // sameSite:process.env.NODE_ENV==='production'? 'none':'strict',
-            maxAge:7 * 24 * 60 * 60* 1000
-        })
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true, // Only for HTTPS in production
+            sameSite: 'None', // For cross-origin cookies
+            maxAge: 7 * 24 * 60 * 60 * 1000
+          });
+          
        
        if (user.isAccountVerified) {
         return res.json({success:"false", message: 'already verified' });
