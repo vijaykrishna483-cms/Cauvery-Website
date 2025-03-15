@@ -27,10 +27,13 @@ const register = async (req, res) => {
         const user= new userModel({name,email,password:hashedPassword})
         
         const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'});
+       
+          
+        
         res.cookie('token',token,{
             httpOnly:true,
-            secure:process.env.NODE_ENV==='production',
-            sameSite:process.env.NODE_ENV==='production'? 'none':'strict',
+            secure:true,
+            // sameSite:process.env.NODE_ENV==='production'? 'none':'strict',
             maxAge:7 * 24 * 60 * 60* 1000
         })
        
@@ -173,6 +176,8 @@ const sendVerifyOtp = async (req, res) => {
 
     }
 };
+
+
 const verifyEmail = async (req, res) => {
     const { userID, otp } = req.body;
     

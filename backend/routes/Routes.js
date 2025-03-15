@@ -27,6 +27,8 @@ const { getuserData } = require('../Controllers/userController');
 router.post('/register' ,register)
 router.post('/login' ,login)
 router.post('/logout' ,logout)
+
+
 router.post('/send-verify-otp' ,userAuth,sendVerifyOtp)
 router.post('/verify-account' ,userAuth,verifyEmail)
 router.get('/is-auth' ,userAuth,isAuthenticated
