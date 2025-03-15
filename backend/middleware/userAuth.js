@@ -2,7 +2,8 @@ const jwt =require('jsonwebtoken');
 const { use } = require('../routes/Routes');
 
 const userAuth =async (req,res,next)=>{
-    
+    console.log('Cookies:', req.cookies);
+
     const {token}=req.cookies;
 
     if(!token){
