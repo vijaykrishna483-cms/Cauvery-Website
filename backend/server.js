@@ -19,9 +19,10 @@ app.use(cookieParser()); // This will parse cookies and populate req.cookies
 
 // Option 2:  Restrict to your frontend origin (Recommended for production)
 
+
 app.use(cors({
-    origin: ["http://localhost:5173", "https://cauverytest.netlify.app"], // Add localhost for development
-    credentials: true
+  origin: ["http://localhost:5173", "https://cauverytest.netlify.app","https://cauveryhostel.in","http://cauveryhostel.in","www.cauveryhostel.in"], // Add localhost for development
+  credentials: true
 }));
 
 
